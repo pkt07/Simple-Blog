@@ -18,9 +18,8 @@ mongoose.connect(uri, {useMongoClient: true}, function(err){
     console.log('no error in db');
 });
 
-//var MongoClient = require('mongodb').MongoClient;
-//var url = "";
-
+mongoose.Promise = require('bluebird');
+var db = mongoose.connection;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
