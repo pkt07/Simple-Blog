@@ -1,0 +1,47 @@
+{
+  "name": "simple-blog",
+  "version": "1.0.0",
+  "description": "A simple blogging platform",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pkt07/Simple-Blog.git"
+  },
+  "author": "group b10",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pkt07/Simple-Blog/issues"
+  },
+  "homepage": "https://github.com/pkt07/Simple-Blog#readme",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "engineStrict": true,
+  "dependencies": {
+    "async": "^2.6.0",
+    "bcryptjs": "*",
+    "bluebird": "^3.5.1",
+    "body-parser": "*",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "handlebars-helpers": "^0.9.8",
+    "mocha": "^4.0.1",
+    "moment": "^2.18.1",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "request": "^2.83.0"
+  }
+}
