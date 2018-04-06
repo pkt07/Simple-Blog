@@ -80,7 +80,8 @@ router.post('/login',
 	passport.authenticate('local',{ successRedirect:'/dashboard', failureRedirect: '/users/login',
 									 failureFlash: 'Username or password invalid, please check again'}),
 	function(req,res){
-	res.redirect('/dashboard');
+
+	res.redirect('/users/dashboard');
 });
 
 	module.exports = router;
