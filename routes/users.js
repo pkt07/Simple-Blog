@@ -4,9 +4,20 @@ var User = require('../models/user');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
 //var Blog = require('../models/blog');
 // Get Homepage
 
+function ensureAuthenticated(req,res,next){
+	if(req.isAuthenticated()){
+		return next();
+	}
+	else
+	{
+		res.redirect('/');
+	}
+}
 router.get('/register',function(req, res){
     	res.render('register');
 });
@@ -104,10 +115,30 @@ router.post('/blogpost', function(req, res) {
     	content : newcontent
     };
     var currUser = req.user;
-  	User.createPost(currUser,newPost,function(err,res){
+  	User.createPost(currUser,newPost,function(err,result){
   		if(err) throw err;
   		console.log(currUser);
-  		res.render('/users/blogpost');
+  		res.redirect('/users/dashboard');
   	})
   
+});
+
+router.put('/follow/:userName',ensureAuthenticated,function(req,res){
+	var userToFollow = req.params.userName;
+	var currUser = req.user;
+	console.log(userToFollow);
+	console.log(currUser);
+
+	if(currUser.follow.indexOf(userToFollow) == -1){
+		User.FollowUser(currUser,userToFollow,function(err,result){
+			if(err) throw err;
+			console.log(currUser);
+			res.json("User "+currUser.firstname+" Follow User "+ userToFollow)
+		});
+	}
+	else
+		res.json("User Already Blocked");
+	
+
+
 });

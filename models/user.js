@@ -45,6 +45,10 @@ module.exports.createUser = function(newUser, callback){
 module.exports.createPost = function(currUser,newPost,callback){
 	User.update({username:currUser.username},{$push:{blogs:newPost}},callback);
 }
+module.exports.FollowUser = function(currUser,userToFollow,callback){
+	User.update({username: currUser.username},{$push:{follow: userToFollow}},callback);
+}
+
 module.exports.getUserByUsername = function(username, callback){
 	var query = {username: username};
 	User.findOne(query, callback);
