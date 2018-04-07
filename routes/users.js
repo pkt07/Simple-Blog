@@ -6,6 +6,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
+var async = require('async');
+var promise = require('promise');
 //var Blog = require('../models/blog');
 // Get Homepage
 
@@ -26,6 +28,7 @@ router.get('/login',function(req, res){
     	res.render('login');
 });
 router.get('/dashboard',function(req, res){
+	console.log(req.user);
     	res.render('dashboard');
 });
 router.get('/blogpost',function(req, res){
@@ -137,8 +140,32 @@ router.put('/follow/:userName',ensureAuthenticated,function(req,res){
 		});
 	}
 	else
-		res.json("User Already Blocked");
+		res.json("User Already in followlist");
+});
+
+router.get('/feed',function(req, res){
+	var feeds = new Array();
+	var k =0;
+	var currUser = req.user;
+
+		for(var i = 0;i<currUser.follow.length;i++)
+    	{
+    		User.getUserByUsername(currUser.follow[i],function(err , user){
+    			if (err) throw err;
+    			console.log(user.blogs.length);
+    			for (var j = 0 ; j < user.blogs.length; j++) {
+    				console.log(user.blogs[j]);
+    				feeds[k]=user.blogs[j];
+    				k++;
+    				//console.log(feeds);
+    			}
+    		});
+    		
+    	}
+    	res.json(feeds);
 	
 
-
+    
+    	// console.log(feeds);
+    
 });
