@@ -11,7 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-uri = 'mongodb://test:test@ds235239.mlab.com:35239/login_data';
+uri = 'mongodb://test:test123@ds151059.mlab.com:51059/heroku_v2vsbvn4';
 mongoose.connect(uri,function(err){
   if (err) console.log('failed to connect to db');
   else
