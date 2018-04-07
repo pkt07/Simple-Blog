@@ -10,12 +10,26 @@ var UserSchema = mongoose.Schema({
 	password:{
 		type:String
 	},
-	email:{
+	firstname:{
 		type:String
 	},
-	name:{
+	lastname:{
 		type:String
-	}
+	},
+	blogurl:{
+		type:String
+	},
+	blogs:[
+		{
+			title:{
+				type:String
+			},
+			content:{
+				type:String
+			}
+		}
+	],
+	follow:[String]
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);
@@ -28,7 +42,9 @@ module.exports.createUser = function(newUser, callback){
 	    });
 	});
 }
-
+module.exports.createPost = function(currUser,newPost,callback){
+	User.update({username:currUser.username},{$push:{blogs:newPost}},callback);
+}
 module.exports.getUserByUsername = function(username, callback){
 	var query = {username: username};
 	User.findOne(query, callback);

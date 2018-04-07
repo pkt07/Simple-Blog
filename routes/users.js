@@ -4,6 +4,7 @@ var User = require('../models/user');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
+//var Blog = require('../models/blog');
 // Get Homepage
 
 router.get('/register',function(req, res){
@@ -16,16 +17,17 @@ router.get('/login',function(req, res){
 router.get('/dashboard',function(req, res){
     	res.render('dashboard');
 });
-
+router.get('/blogpost',function(req, res){
+    	res.render('blogpost');
+});
 //register user
 router.post('/register',function(req,res){
-	var name = req.body.name;
-	var email = req.body.email;
+	var firstname = req.body.firstname;
+	var lastname = req.body.lastname;
 	var username = req.body.username;
 	var password = req.body.password;
-	var password2 = req.body.password2;
+	var blogurl = req.body.blogurl;
 
-	req.checkBody('password2','Password do not match').equals(req.body.password);
 	var errors = req.validationErrors();
 
 	if(errors){
@@ -34,10 +36,11 @@ router.post('/register',function(req,res){
 		});
 	}else{
 		var newUser = new User({
-			name:name,
-			email:email,
+			firstname:firstname,
+			lastname:lastname,
 			username:username,
-			password:password
+			password:password,
+			blogurl:blogurl
 		});
 		User.createUser(newUser,function(err,user){
 			if(err) throw err;
@@ -87,4 +90,24 @@ req.logout();
 req.flash('success_msg','You are successfully logout');
 res.redirect('/users/login');
 });
-	module.exports = router;
+module.exports = router;
+
+// router.post('/dashboard', function(req, res) {
+//   res.send(req.body);
+// });
+
+router.post('/blogpost', function(req, res) {
+    var newtitle = req.body.title;
+    var newcontent = req.body.content;
+    var newPost = {
+    	title : newtitle,
+    	content : newcontent
+    };
+    var currUser = req.user;
+  	User.createPost(currUser,newPost,function(err,res){
+  		if(err) throw err;
+  		console.log(currUser);
+  		res.render('/users/blogpost');
+  	})
+  
+});
