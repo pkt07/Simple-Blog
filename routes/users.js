@@ -77,11 +77,14 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login',
-	passport.authenticate('local',{ successRedirect:'/dashboard', failureRedirect: '/users/login',
+	passport.authenticate('local',{ successRedirect:'/users/dashboard', failureRedirect: '/users/login',
 									 failureFlash: 'Username or password invalid, please check again'}),
 	function(req,res){
 
-	res.redirect('/users/dashboard');
 });
-
+router.get('/logout',function(req,res){
+req.logout();
+req.flash('success_msg','You are successfully logout');
+res.redirect('/users/login');
+});
 	module.exports = router;

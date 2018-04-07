@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Loginapp</title>
+	<title>Blog</title>
 	<link rel="stylesheet" href="/css/bootstrap.css"/>
 	<link rel="stylesheet" href="/css/style1.css"/>
 </head>
@@ -9,10 +9,16 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
+            
+            {{#if user}}
             <li role="presentation"><a href="/users/dashboard">Dashboard</a></li>
+            <li role="presentation"><a href="/users/Logout">LogOut</a></li>
+
+            {{else}}
             <li role="presentation"><a href="/users/login">Login</a></li>
             <li role="presentation"><a href="/users/register">Signup</a></li>
-            <li role="presentation"><a href="/users/Logout">LogOut</a></li>
+            {{/if}}
+            
           </ul>
         </nav>
         <h3 class="text-muted">Blogging Platform</h3>
@@ -37,7 +43,7 @@
       </div>
 
       <footer class="footer">
-        <p>&copy; 2016 Login, Inc.</p>
+        <p>&copy; 2018 Login, Inc.</p>
       </footer>
 
     </div>
